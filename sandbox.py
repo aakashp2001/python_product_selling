@@ -39,10 +39,13 @@ class Product:
             print("\n---------------------------------------------------")
 
             buy_index = validate_index(len(list(enumerate(rows))))
+            print("\n---------------------------------------------------")
             print("\nThe chosen laptop is:")
             for index,value in enumerate(rows):
                 if index+1 == buy_index:
                     print(value[1],", Price:",value[3])
+            print("\n---------------------------------------------------")
+            
             confirm = validate_confiramtion()
             print(confirm)
         else:
@@ -62,10 +65,12 @@ class Product:
             print("\n---------------------------------------------------")
 
             buy_index = validate_index(len(list(enumerate(rows))))
+            print("\n---------------------------------------------------")
             print("\nThe chosen laptop is:")
             for index,value in enumerate(rows):
                 if index+1 == buy_index:
                     print(value[1],", Price:",value[3])
+            print("\n---------------------------------------------------")
             confirm = validate_confiramtion()
             print(confirm)
         else:

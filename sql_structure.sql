@@ -17,8 +17,8 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`product_db` /*!40100 DEFAULT CHARACTER 
 USE `product_db`;
 
 /*Table structure for table `cart` */
-
-CREATE TABLE `cart` (
+DROP TABLE IF EXISTS `product_db`.`cart`;
+CREATE TABLE `product_db`.`cart` (
   `name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
   `quantiy` int NOT NULL
@@ -27,20 +27,25 @@ CREATE TABLE `cart` (
 /*Data for the table `cart` */
 
 /*Table structure for table `product` */
-
-CREATE TABLE `product` (
+DROP TABLE IF EXISTS `product_db`.`product`;
+CREATE TABLE `product_db`.`product` (
   `pid` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
   `price` float NOT NULL,
+  `stock` int DEFAULT '0',
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `product` */
 
-insert  into `product`(`pid`,`name`,`category`,`price`) values 
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('1', 'Dell Inspiron', 'Work', '50000', '100');
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('2', 'HP Omen', 'Gaming', '85000', '75');
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('3', 'Asus ROG', 'Gaming', '80000', '50');
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('4', 'Acer Aspire 5', 'Work', '70000', '0');
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('5', 'Asus Chromebook', 'Work', '55000', '50');
+INSERT INTO `product_db`.`product` (`pid`, `name`, `category`, `price`, `stock`) VALUES ('6', 'Asus TUF', 'Gaming', '60000', '50');
 
-(1,'HP Omen','Laptop',100000);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

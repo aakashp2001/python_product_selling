@@ -18,10 +18,12 @@ USE `product_db`;
 
 /*Table structure for table `cart` */
 DROP TABLE IF EXISTS `product_db`.`cart`;
-CREATE TABLE `product_db`.`cart` (
+CREATE TABLE `cart` (
   `name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
-  `quantiy` int NOT NULL
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
+  `total` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `cart` */

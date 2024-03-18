@@ -18,13 +18,15 @@ USE `product_db`;
 
 /*Table structure for table `cart` */
 DROP TABLE IF EXISTS `product_db`.`cart`;
-CREATE TABLE `cart` (
+CREATE TABLE `product_db`.`cart` (
+  `cid` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `category` varchar(50) NOT NULL,
   `price` int NOT NULL,
   `quantity` int NOT NULL,
-  `total` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `total` int NOT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `cart` */
 

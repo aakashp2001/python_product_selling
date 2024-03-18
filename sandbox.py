@@ -1,4 +1,11 @@
+# FOR PDF GENERATION:
+# pip install mysql-connector-python reportlab
+
+# FOR MYSQL CONNECTION:
+# pip install mysql-connector-python
+
 import mysql.connector
+from reportlab.pdfgen import canvas
 
 db_host="localhost"
 db_user="root"
@@ -50,8 +57,7 @@ class Cart:
                 self.remove_item()
             
             elif choice == 3:
-                # self.checkout()
-                pass
+                self.checkout()
 
             elif choice == 4:
                 main()
@@ -112,6 +118,47 @@ class Cart:
             print("\n---------------------------------------------------")
         
         cart = Cart()
+    
+    def checkout(self):
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM product_db.cart")
+        items = cursor.fetchall()
+        if items:
+            line = 0
+            total_price = 0
+            pdf = canvas.Canvas('Order.pdf')
+            pdf.setFont('Helvetica-Bold', 24)
+            pdf.drawString(250, 730, "Your Order")
+            pdf.setFont('Helvetica', 16)
+            pdf.drawString(100, 670, "Product")
+            pdf.drawString(240, 670, "Type")
+            pdf.drawString(310, 670, "Unit Price")
+            pdf.drawString(400, 670, "Quantity")
+            pdf.drawString(475, 670, "Total")
+
+            pdf.setFont('Helvetica', 12)
+            for row in items:
+                pdf.drawString(50, 640-(30*line), f"{line+1}.")
+                pdf.drawString(100, 640-(30*line), str(row[1]))
+                pdf.drawString(240, 640-(30*line), str(row[2]))
+                pdf.drawString(325, 640-(30*line), str(row[3]))
+                pdf.drawString(420, 640-(30*line), str(row[4]))
+                pdf.drawString(475, 640-(30*line), str(row[5]))
+                total_price += row[5]
+                pdf.line(50, 630-(30*line), 525, 630-(30*line))
+                line += 1
+            
+            pdf.drawString(370, 630-(30*line), f"Total Amount: Rs.{total_price}")
+            try:
+                pdf.save()
+                print("PDF file saved.\n")
+            except PermissionError:
+                print("Permission Denied. Please close the file")
+                main()
+        else:
+            print("No Laptops Added in Cart")
+            print("\n---------------------------------------------------")
+
 
 
 

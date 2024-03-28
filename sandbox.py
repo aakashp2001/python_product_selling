@@ -9,8 +9,8 @@ from reportlab.pdfgen import canvas
 
 db_host="localhost"
 db_user="root"
-db_pswd="aakash"
-db_port="3306"
+db_pswd="abcd"
+db_port="3307"
 conn = mysql.connector.connect(host=db_host, user=db_user, password=db_pswd, database="product_db", port=db_port)
 
 #------------------------------------------------------------------------#
@@ -24,6 +24,7 @@ class Product:
         print("\n---------------------------------------------------\n")
         print("1. Gaming Laptops")
         print("2. Work Laptops")
+        print("3. Go back to main menu")
         try:
             category = int(input("\nEnter the category of the laptop you want to buy: "))
             print("\n---------------------------------------------------")
@@ -31,6 +32,8 @@ class Product:
                 buy_laptop("Gaming")
             elif category == 2:
                 buy_laptop("Work")
+            elif category == 3:
+                main()
             else:
                 print("Invalid Input")
                 product = Product()
@@ -96,6 +99,7 @@ class Cart:
             for index,value in enumerate(items):
                 print(index+1,":",value[1],", Category: ",value[2],", Price: Rs.",value[3], ", Quantity: ",value[4])
             choice = validate_index(len(list(enumerate(items))))
+            
             print("\n---------------------------------------------------")
             print("\nThe chosen laptop is:")
             for index,value in enumerate(items):
@@ -107,6 +111,10 @@ class Cart:
             confirm = validate_confiramtion()
             if confirm:
                 cursor.execute("DELETE FROM `product_db`.`cart` WHERE (`cid` = '%s')",[chosen_laptop[0]])
+                cursor.execute("SELECT * FROM product_db.product WHERE (`name` = %s)",[chosen_laptop[1],])
+                product = cursor.fetchone()
+                cursor.execute("update product_db.product set stock = stock +  %s where pid = '%s'",(chosen_laptop[4],product[0]))
+                print(chosen_laptop)
                 conn.commit()
                 print("\nLaptop removed from Cart")
                 cart = Cart()
